@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Making the Grade</title>
+</head>
+<body>
+    <h1>Making the Grade</h1>
+    <div id="studentData"></div>
+
+    <script>
+        // Sample student grades data in the format: "name1, score1, name2, score2, ..."
+        const grades = "Kingzy Valcourt, 85, King Val, 92, Zoeking KV, 78, Youngking ZK, 95";
+
+        // Function to capitalize the first letter of a string
+        function capitalizeFirstLetter(string) {
+            return string.charAt(0).toUpperCase() + string.slice(1);
+        }
+
+        // Split the grades string into an array of student data
+        const students = grades.split(", ");
+
+        // Variables to hold total students count, lowest, highest, and average scores
+        let totalStudents = students.length / 2;
+        let lowestScore = Infinity;
+        let highestScore = -Infinity;
+        let totalScore = 0;
+
+        // Display each student's name and score in a readable format
+        let studentDataHTML = "<ul>";
+        for (let i = 0; i < students.length; i += 2) {
+            const studentName = capitalizeFirstLetter(students[i]);
+            const studentScore = parseInt(students[i + 1]);
+            studentDataHTML += `<li>${studentName}: ${studentScore}</li>`;
+
+            // Update lowest and highest scores
+            lowestScore = Math.min(lowestScore, studentScore);
+            highestScore = Math.max(highestScore, studentScore);
+
+            // Calculate total score
+            totalScore += studentScore;
+        }
+        studentDataHTML += "</ul>";
+
+        // Calculate average score
+        const averageScore = totalScore / totalStudents;
+
+        // Append student data and summary to the 'studentData' div
+        document.getElementById("studentData").innerHTML = `
+            ${studentDataHTML}
+            <p>Total Students: ${totalStudents}</p>
+            <p>Lowest Score: ${lowestScore}</p>
+            <p>Highest Score: ${highestScore}</p>
+            <p>Average Score: ${averageScore.toFixed(2)}</p>
+        `;
+    </script>
+</body>
+</html>
